@@ -10,6 +10,8 @@ services:
     networks:
       - inception_network
     restart: on-failure
+    env_file:
+      - ./.env
   
   # ----- WORDPRESS -----
   wordpress:

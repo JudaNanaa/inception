@@ -1,25 +1,15 @@
 FROM alpine:3.20
 
-WORKDIR /app
-
-RUN apk update && \
-    apk add mariadb && \
-    apk add mariadb-client
-
-    
 # LABEL = metadata of the image like a photo
 LABEL version="1.0"
 LABEL description="MariaDB Server"
 
+RUN apk update && \
+    apk add --no-cache mariadb mariadb-client
+
 EXPOSE 3306
 
-# HEALTHCHECK = check if the container is healty : 
-    # - try simple cmd and look if it's work
-HEALTHCHECK --start-period=5m \
-  CMD mariadb -e 'SELECT @@datadir;' || exit 1
+COPY ./start-mariadb.sh /start-mariadb.sh
+RUN chmod +x /start-mariadb.sh
 
-# RUN /etc/init.d/mariadb setup
-
-# RUN rc-service mariadb start
-
-ENTRYPOINT [ "mariadbd" ]
+ENTRYPOINT ["/start-mariadb.sh"]
