@@ -33,7 +33,7 @@ services:
       - inception_network
     env_file:
       - ./.env
-    
+
 networks:
   inception_network:
     driver: bridge
