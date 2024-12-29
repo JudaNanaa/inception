@@ -33,6 +33,7 @@ services:
       - inception_network
     env_file:
       - ./.env
+    restart: on-failure
 
 networks:
   inception_network:
