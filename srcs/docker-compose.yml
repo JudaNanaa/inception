@@ -9,6 +9,8 @@ services:
       - 8080:80
     networks:
       - inception_network
+    volumes:
+      - wordpress:/var/www/html/wordpress
     restart: on-failure
     env_file:
       - ./.env
@@ -22,8 +24,8 @@ services:
     networks:
       - inception_network
     restart: on-failure
-    # volumes:
-    #   - $HOME/$LOGIN/data/wordpress_website_files:/var/www/html/wordpress
+    volumes:
+      - wordpress:/var/www/html/wordpress
     env_file:
       - ./.env
 
@@ -33,9 +35,25 @@ services:
     build: requirements/mariadb
     networks:
       - inception_network
+    volumes:
+      - mariadb:/var/lib/mysql
     env_file:
       - ./.env
     restart: on-failure
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: $HOME/$LOGIN/data/wordpress
+      o: bind
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: $HOME/$LOGIN/data/mariadb
+      o: bind
 
 networks:
   inception_network:
