@@ -11,6 +11,6 @@ EXPOSE 3306
 
 COPY ./start-mariadb.sh /start-mariadb.sh
 
-RUN chmod +x /start-mariadb.sh
+RUN chmod +x /start-mariadb.sh && chmod 775 /var/lib/mysql
 
 ENTRYPOINT ["/start-mariadb.sh"]

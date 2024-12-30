@@ -45,9 +45,12 @@ RUN chown -R nobody:nobody /var/www/html/wordpress
 
 RUN chmod -R 775 /var/www/html/wordpress
 
-# Switch to a non-root user
-USER nobody
+# # Switch to a non-root user
+# USER nobody
 
 EXPOSE 9000
 
 CMD ["php-fpm83", "-F"]
+
+
+#  regarder commment fonctionne wp-cli 

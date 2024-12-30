@@ -10,12 +10,10 @@ validate_admin_password() {
 
 # Function to initialize the database if it doesn't exist
 initialize_database() {
-    if [ ! -d "/var/lib/mysql/mysql" ]; then
-        echo "Initializing database..."
-        mysql_install_db --user=mysql --datadir=/var/lib/mysql
-        mysqld_safe --skip-networking &
-        sleep 5
-    fi
+    echo "Initializing database..."
+    mysql_install_db --user=mysql --datadir=/var/lib/mysql
+    mysqld_safe --skip-networking &
+    sleep 5
 }
 
 # Function to create the root user, database, and other users
@@ -40,9 +38,7 @@ start_database() {
 
 # Main script execution
 validate_admin_password
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-    initialize_database
-    create_users
-fi
+initialize_database
+create_users
 
 start_database
