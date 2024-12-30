@@ -5,7 +5,7 @@ LABEL version="1.0"
 LABEL description="MariaDB Server"
 
 RUN apk update && \
-    apk add --no-cache mariadb mariadb-client mariadb-server-utils pwgen
+    apk add --no-cache mariadb mariadb-client mariadb-server-utils
 
 EXPOSE 3306
 

@@ -26,11 +26,11 @@ RUN apk update && apk add --no-cache \
     mysql-client
 
 # Create the directory for WordPress
-RUN mkdir -p /var/www/wordpress
+RUN mkdir -p /var/www/html/wordpress
 
 # Download and extract WordPress
 RUN curl -o wordpress.tar.gz https://wordpress.org/latest.tar.gz && \
-    tar -xzvf wordpress.tar.gz -C /var/www/wordpress --strip-components=1 && \
+    tar -xzf wordpress.tar.gz -C /var/www/html/wordpress --strip-components=1 && \
     rm -rf wordpress.tar.gz
 
 RUN mkdir -p /var/log/php83 && chown -R nobody:nobody /var/log/php83
@@ -41,7 +41,9 @@ RUN mkdir -p /run/php && \
     sed -i 's/listen = 127.0.0.1:9000/listen = 9000/' /etc/php83/php-fpm.d/www.conf
 
 # Set permissions for WordPress
-RUN chown -R nobody:nobody /var/www/wordpress
+RUN chown -R nobody:nobody /var/www/html/wordpress
+
+RUN chmod -R 775 /var/www/html/wordpress
 
 # Switch to a non-root user
 USER nobody

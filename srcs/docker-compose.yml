@@ -22,6 +22,8 @@ services:
     networks:
       - inception_network
     restart: on-failure
+    # volumes:
+    #   - $HOME/$LOGIN/data/wordpress_website_files:/var/www/html/wordpress
     env_file:
       - ./.env
 
