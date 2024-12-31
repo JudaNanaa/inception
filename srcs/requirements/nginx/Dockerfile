@@ -1,8 +1,9 @@
 FROM alpine:3.20
 
-WORKDIR /app
+RUN apk add --no-cache nginx
 
-RUN apk update \
-	&& apk add nginx
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
