@@ -6,15 +6,19 @@ LABEL description="MariaDB Server"
 
 RUN apk add --no-cache mariadb \
    && apk add mariadb-client \
+   && apk add bash \
+   && apk add openrc \
    && mkdir -p /run/mysqld \
    && chown -R mysql:mysql /run/mysqld
 
-COPY 50-server.cnf etc/mysql/mariadb.conf.d/50-server.cnf
+COPY 50-server.cnf /etc/mysql/mariadb.conf.d/
 
-COPY mariadb-init.sh /
+# EXPOSE 3306
 
-RUN chmod +x mariadb-init.sh
+COPY ./start-mariadb.sh /
 
-EXPOSE 3306
+RUN chmod +x /start-mariadb.sh && chmod 775 /var/lib/mysql
 
-CMD ["/bin/sh", "/mariadb-init.sh"]
+ENTRYPOINT [ "tail", "-f" ]
+
+# ENTRYPOINT ["/start-mariadb.sh"]
