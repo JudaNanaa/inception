@@ -24,9 +24,7 @@ wp core install --url="$DOMAIN_NAME" --title="$TITLE" --admin_user="$WP_ADMIN_US
 wp user create "$WP_USER" "$WP_USER_EMAIL" --user_pass="$WP_USER_PASSWORD"--allow-root
 sleep 5 
 
-sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.3/fpm/pool.d/www.conf
+sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.4/fpm/pool.d/www.conf
 mkdir -p /run/php
-# chown -R www-data:www-data /var/www/html/wordpress/wp-content/uploads
 
 exec php-fpm83 -F
-# exec $@
