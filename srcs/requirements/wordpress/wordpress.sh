@@ -28,5 +28,5 @@ sed -i '36 s@/run/php/php7.4-fpm.sock@9000@' /etc/php/7.3/fpm/pool.d/www.conf
 mkdir -p /run/php
 # chown -R www-data:www-data /var/www/html/wordpress/wp-content/uploads
 
-php-fpm83 -F
-exec $@
+exec php-fpm83 -F
+# exec $@
