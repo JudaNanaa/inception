@@ -35,6 +35,8 @@ services:
     build: requirements/mariadb
     networks:
       - inception_network
+    ports:
+      - 3306
     volumes:
       - mariadb:/var/lib/mysql
     env_file:

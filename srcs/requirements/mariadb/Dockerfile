@@ -1,24 +1,11 @@
-FROM alpine:3.20
+FROM debian:bullseye
 
-# LABEL = metadata of the image like a photo
-LABEL version="1.0"
-LABEL description="MariaDB Server"
+RUN apt-get update && apt install -y mariadb-server vim zsh
 
-RUN apk add --no-cache mariadb \
-   && apk add mariadb-client \
-   && apk add bash \
-   && apk add openrc \
-   && mkdir -p /run/mysqld \
-   && chown -R mysql:mysql /run/mysqld
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
-COPY 50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY tools/mariadb.sh /
 
-# EXPOSE 3306
+RUN chmod +x mariadb.sh
 
-COPY ./start-mariadb.sh /
-
-RUN chmod +x /start-mariadb.sh && chmod 775 /var/lib/mysql
-
-ENTRYPOINT [ "tail", "-f" ]
-
-# ENTRYPOINT ["/start-mariadb.sh"]
+ENTRYPOINT [ "/mariadb.sh", "mysqld" ]
