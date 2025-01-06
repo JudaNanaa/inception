@@ -18,7 +18,7 @@ COPY wordpress.sh /
 
 RUN chmod +x wordpress.sh
 
-COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY www.conf /etc/php83/php-fpm.d/www.conf
 
 CMD ["/wordpress.sh"]
 

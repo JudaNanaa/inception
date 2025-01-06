@@ -15,6 +15,7 @@ clean : delete
 	docker container rm -f mariadb
 	docker container rm -f wordpress
 	docker container rm -f nginx
+	docker volume prune -af
 	docker system prune -af
 
 log :
