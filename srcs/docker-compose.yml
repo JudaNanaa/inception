@@ -20,6 +20,7 @@ services:
     container_name: wordpress
     depends_on:
       - mariadb
+      - redis
     build: requirements/wordpress
     networks:
       - inception_network
@@ -42,6 +43,19 @@ services:
     env_file:
       - ./.env
     restart: on-failure
+  # ----- REDIS -----
+  redis:
+    container_name: redis
+    build: requirements/bonus/redis
+    networks:
+      - inception_network
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+    restart: on-failure
+    env_file:
+      - ./.env
 
 volumes:
   wordpress:
@@ -55,6 +69,12 @@ volumes:
     driver_opts:
       type: none
       device: $HOME/$LOGIN/data/mariadb
+      o: bind
+  redis:
+    driver: local
+    driver_opts:
+      type: none
+      device: $HOME/$LOGIN/data/redis
       o: bind
 
 networks:

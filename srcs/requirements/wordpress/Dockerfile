@@ -9,7 +9,8 @@ RUN apk update && apk add --no-cache \
     tar \
     curl \
     mariadb-client \
-    php-iconv
+    php-iconv \
+    php-tokenizer
 
 EXPOSE 9000
 

@@ -11,6 +11,7 @@ if [ ! -f "/var/www/html/wordpress/wp-config.php" ]; then
 
     wp core download --allow-root
 
+
     wp core config \
         --dbhost="$MARIADB_HOST" \
         --dbname="$MARIADB_NAME" \
@@ -31,6 +32,14 @@ if [ ! -f "/var/www/html/wordpress/wp-config.php" ]; then
         "$WP_USER_EMAIL" \
         --user_pass="$WP_USER_PASSWORD" \
         --allow-root
+
+
+    # for redis
+    wp config set WP_REDIS_HOST $WP_REDIS_HOST --allow-root
+    wp config set WP_REDIS_PORT $WP_REDIS_PORT --allow-root
+    wp config set WP_CACHE true --add --allow-root
+    wp plugin install redis-cache --activate
+    wp redis enable --allow-root
 
     echo "WordPress initialisé avec succès."
 else
