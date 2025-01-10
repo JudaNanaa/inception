@@ -41,6 +41,8 @@ if [ ! -f "/var/www/html/wordpress/wp-config.php" ]; then
     wp plugin install redis-cache --activate
     wp redis enable --allow-root
 
+	chmod -R 777 . && chown -R www-data:www-data .
+
     echo "WordPress initialisé avec succès."
 else
     echo "wp-config.php trouve. Aucune action effectuée."
@@ -48,6 +50,5 @@ fi
 
 sleep 5 
 
-mkdir -p /run/php
-
+echo "The website is accessible."
 exec php-fpm83 -F

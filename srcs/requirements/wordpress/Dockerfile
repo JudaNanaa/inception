@@ -24,7 +24,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mkdir -p /var/www/html/wordpress/ \
     && chmod -R 755 /var/www/html/wordpress/ \
     && adduser -u 82 -D -G www-data www-data \
-    && chown -R www-data:www-data /var/www/html/wordpress
+    && chown -R www-data:www-data /var/www/html/wordpress \
+	&& mkdir -p /run/php
 
 WORKDIR /var/www/html/wordpress/
 
