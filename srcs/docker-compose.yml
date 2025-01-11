@@ -50,9 +50,7 @@ services:
     networks:
       - inception_network
     ports:
-      - 6379:6379
-    volumes:
-      - redis:/data
+      - 6379
     restart: on-failure
     env_file:
       - ./.env
@@ -69,12 +67,6 @@ volumes:
     driver_opts:
       type: none
       device: $HOME/$LOGIN/data/mariadb
-      o: bind
-  redis:
-    driver: local
-    driver_opts:
-      type: none
-      device: $HOME/$LOGIN/data/redis
       o: bind
 
 networks:
