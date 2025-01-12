@@ -3,7 +3,6 @@ all : up
 up :
 	mkdir -p ~/madamou/data/mariadb
 	mkdir -p ~/madamou/data/wordpress
-	mkdir -p ~/madamou/data/redis
 	docker compose -f srcs/docker-compose.yml up --build
 
 down : 
@@ -13,9 +12,7 @@ delete :
 	sudo rm -rf ~/madamou/data/*
 
 clean : delete
-	docker container rm -f mariadb
-	docker container rm -f wordpress
-	docker container rm -f nginx
+	docker container prune -f
 	docker volume prune -af
 	docker system prune -af
 

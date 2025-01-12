@@ -36,8 +36,6 @@ services:
     build: requirements/mariadb
     networks:
       - inception_network
-    ports:
-      - 3306
     volumes:
       - mariadb:/var/lib/mysql
     env_file:
@@ -49,8 +47,24 @@ services:
     build: requirements/bonus/redis
     networks:
       - inception_network
+    restart: on-failure
+    env_file:
+      - ./.env
+  ftp:
+    depends_on:
+      - wordpress
+      - mariadb
+      - redis
+    container_name: ftp
+    build: requirements/bonus/ftp
+    networks:
+      - inception_network
     ports:
-      - 6379
+      - "21:21"
+      - "20:20"
+      - "21100-21110:21100-21110"
+    volumes:
+      - wordpress:/var/www/html
     restart: on-failure
     env_file:
       - ./.env
