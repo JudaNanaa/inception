@@ -53,8 +53,6 @@ services:
   ftp:
     depends_on:
       - wordpress
-      - mariadb
-      - redis
     container_name: ftp
     build: requirements/bonus/ftp
     networks:
@@ -64,7 +62,7 @@ services:
       - "20:20"
       - "21100-21110:21100-21110"
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/home/vsftpd
     restart: on-failure
     env_file:
       - ./.env

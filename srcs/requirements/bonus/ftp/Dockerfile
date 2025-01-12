@@ -1,23 +1,13 @@
-# Use Alpine Linux 3.20 as the base image
-FROM alpine:3.20
+FROM debian:bullseye
 
-# Install vsftpd and other dependencies
-RUN apk update && apk add vsftpd
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get install -y vsftpd vim zsh
 
-# Create a new user and set a password
-RUN adduser -D ftpuser && echo "ftpuser:test" | chpasswd
+COPY conf/vsftpd.conf /etc/
 
-RUN mkdir -p /home/ftpuser/ftp && chown -R ftpuser:ftpuser /home/ftpuser/ftp
+COPY tools/ftp.sh /home/
 
-# Modify vsftpd.conf for local user authentication
-RUN echo "local_enable=YES" >> /etc/vsftpd/vsftpd.conf && \
-    echo "local_umask=022" >> /etc/vsftpd/vsftpd.conf && \
-    echo "user_sub_token=$USER" >> /etc/vsftpd/vsftpd.conf && \
-    echo "local_root=/home/$USER/ftp" >> /etc/vsftpd/vsftpd.conf && \
-    echo "write_enable=YES" >> /etc/vsftpd/vsftpd.conf
+RUN chmod +x /home/ftp.sh
 
-# Expose the FTP port
-EXPOSE 21
-
-# Run vsftpd in the foreground
-CMD ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
+ENTRYPOINT [ "/home/ftp.sh" ]
