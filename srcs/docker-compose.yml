@@ -66,6 +66,18 @@ services:
     restart: on-failure
     env_file:
       - ./.env
+  adminer:
+    depends_on:
+      - nginx
+    container_name: adminer
+    build: requirements/bonus/adminer
+    networks:
+      - inception_network
+    ports:
+      - "80:80"
+    restart: on-failure
+    env_file:
+      - ./.env
 
 volumes:
   wordpress:
