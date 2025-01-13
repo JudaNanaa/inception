@@ -9,8 +9,12 @@ RUN apk update && apk add --no-cache \
     php-zlib \
     php-ctype \
     php-mbstring \
-	wget
+	wget \
+    bash
 
-COPY  adminer.sh /scripts
+COPY adminer.sh /scripts/
 
-CMD [ "/scripts/adminer.sh" ]
+RUN chmod +x /scripts/adminer.sh
+
+
+CMD ["/scripts/adminer.sh"]
