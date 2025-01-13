@@ -14,7 +14,6 @@ delete :
 clean : delete
 	docker container prune -f
 	docker system prune -af
-	# docker volume prune -af
 	docker volume rm -f srcs_mariadb
 	docker volume rm -f srcs_wordpress
 

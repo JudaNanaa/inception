@@ -16,5 +16,4 @@ COPY adminer.sh /scripts/
 
 RUN chmod +x /scripts/adminer.sh
 
-
 CMD ["/scripts/adminer.sh"]
