@@ -7,10 +7,7 @@ echo "[========WP INSTALLATION STARTED========]"
 if [ ! -f "/var/www/html/wordpress/wp-config.php" ]; then
     echo "wp-config.php non trouvé. Initialisation de WordPress..."
 
-    find "/var/www/html/wordpress/" -mindepth 1 -delete
-
     wp core download --allow-root
-
 
     wp core config \
         --dbhost="$MARIADB_HOST" \

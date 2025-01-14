@@ -10,8 +10,6 @@ RUN openssl req -newkey rsa:2048 -nodes -x509 -days 365 \
     -out /etc/nginx/ssl/selfsigned.crt \
     -subj "/C=US/ST=State/L=City/O=Organization/OU=Department/CN=localhost"
 
-RUN openssl dhparam -out /etc/nginx/dhparam.pem 2048
-
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443

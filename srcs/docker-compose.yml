@@ -41,6 +41,7 @@ services:
     env_file:
       - ./.env
     restart: on-failure
+
   # ----- REDIS -----
   redis:
     container_name: redis
@@ -50,6 +51,8 @@ services:
     restart: on-failure
     env_file:
       - ./.env
+
+  # ----- FTP -----
   ftp:
     depends_on:
       - wordpress
@@ -66,8 +69,10 @@ services:
     restart: on-failure
     env_file:
       - ./.env
-  static-website:
-    container_name: website
+
+  # ----- STATIC_WEBSITE -----
+  static_website:
+    container_name: static_website
     build: requirements/bonus/static_website
     networks:
       - inception_network
@@ -76,13 +81,31 @@ services:
     restart: on-failure
     env_file:
       - ./.env
+
+  # ----- ADMINER -----
   adminer:
     container_name: adminer
+    depends_on:
+      - wordpress
     build: requirements/bonus/adminer
     networks:
       - inception_network
     ports:
       - "80:80"
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    restart: on-failure
+    env_file:
+      - ./.env
+
+  # ----- PORTAINER -----
+  portainer:
+    container_name: portainer
+    build: requirements/bonus/portainer
+    networks:
+      - inception_network
+    ports:
+      - "9001:9000"
     restart: on-failure
     env_file:
       - ./.env
