@@ -1,0 +1,17 @@
+services:
+  container_42:
+    container_name: container_42
+    build: .
+    tty: true
+    stdin_open: true
+    volumes:
+      - volume_42:/app
+    restart: on-failure
+
+volumes:
+  volume_42:
+    driver: local
+    driver_opts:
+      type: none
+      device: .
+      o: bind
