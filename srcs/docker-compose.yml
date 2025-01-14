@@ -66,6 +66,16 @@ services:
     restart: on-failure
     env_file:
       - ./.env
+  static-website:
+    container_name: website
+    build: requirements/bonus/static_website
+    networks:
+      - inception_network
+    ports:
+      - "8000:8000"
+    restart: on-failure
+    env_file:
+      - ./.env
 
 volumes:
   wordpress:
