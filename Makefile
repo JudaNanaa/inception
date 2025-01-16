@@ -3,6 +3,7 @@ all : up
 up :
 	mkdir -p ~/madamou/data/mariadb
 	mkdir -p ~/madamou/data/wordpress
+	mkdir -p ~/madamou/backup
 	docker compose -f srcs/docker-compose.yml up --build
 
 down : 

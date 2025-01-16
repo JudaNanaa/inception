@@ -98,14 +98,19 @@ services:
     env_file:
       - ./.env
 
-  # ----- PORTAINER -----
-  portainer:
-    container_name: portainer
-    build: requirements/bonus/portainer
+  # ----- backup -----
+  backup:
+    depends_on:
+      - wordpress
+      - mariadb
+    container_name: backup
+    build: requirements/bonus/backup
     networks:
       - inception_network
-    ports:
-      - "9001:9000"
+    volumes:
+      - wordpress:/var/www/html:ro
+      - mariadb:/var/lib/mysql:ro
+      - backup:/backup
     restart: on-failure
     env_file:
       - ./.env
@@ -122,6 +127,12 @@ volumes:
     driver_opts:
       type: none
       device: $HOME/$LOGIN/data/mariadb
+      o: bind
+  backup:
+    driver: local
+    driver_opts:
+      type: none
+      device: $HOME/$LOGIN/backup
       o: bind
 
 networks:
