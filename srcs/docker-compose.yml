@@ -55,7 +55,7 @@ services:
   # ----- FTP -----
   ftp:
     depends_on:
-      - wordpress
+      - nginx
     container_name: ftp
     build: requirements/bonus/ftp
     networks:
@@ -86,6 +86,7 @@ services:
   adminer:
     container_name: adminer
     depends_on:
+      - mariadb
       - wordpress
     build: requirements/bonus/adminer
     networks:

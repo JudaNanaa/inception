@@ -14,7 +14,9 @@ RUN apk update && apk add --no-cache \
 
 EXPOSE 9000
 
-COPY wordpress.sh /scripts/
+COPY tools/wordpress.sh /scripts/
+
+COPY conf/www.conf /etc/php83/php-fpm.d/www.conf
 
 RUN chmod +x /scripts/wordpress.sh
 
@@ -28,7 +30,5 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	&& mkdir -p /run/php
 
 WORKDIR /var/www/html/wordpress/
-
-COPY www.conf /etc/php83/php-fpm.d/www.conf
 
 CMD ["/scripts/wordpress.sh"]

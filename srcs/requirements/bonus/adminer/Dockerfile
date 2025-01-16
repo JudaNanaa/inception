@@ -15,15 +15,15 @@ RUN apk update && apk add --no-cache \
 
 RUN	mkdir -p /run/php
 
-COPY adminer.sh /scripts/
+COPY tools/adminer.sh /scripts/
+
+COPY conf/www.conf /etc/php83/php-fpm.d/www.conf
 
 RUN chmod +x /scripts/adminer.sh
 
 RUN mkdir -p /var/www/html/wordpress/adminer
 
 WORKDIR /var/www/html/wordpress/adminer
-
-COPY www.conf /etc/php83/php-fpm.d/www.conf
 
 EXPOSE 7000
 
